@@ -1,0 +1,11 @@
+[
+  {
+    "title": "Producto 2",
+    "description": "Descripción del producto 2",
+    "price": 200,
+    "thumbnail": "url_del_thumbnail_2",
+    "code": "codigo_2",
+    "stock": 5,
+    "id": 4
+  }
+]
