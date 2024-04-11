@@ -150,3 +150,5 @@ const productIdToDelete = 3;
 productManager.deleteProduct(productIdToDelete);
 
 // Para correr codigo en node (node ProductManager.js)
+
+module.exports = ProductManager;

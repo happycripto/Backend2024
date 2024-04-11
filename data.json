@@ -1,11 +1,20 @@
 [
   {
+    "title": "Nuevo título coder",
+    "description": "Nueva descripción",
+    "price": 300,
+    "thumbnail": "nueva_url_del_thumbnail",
+    "code": "nuevo_codigo",
+    "stock": 15,
+    "id": 1
+  },
+  {
     "title": "Producto 2",
     "description": "Descripción del producto 2",
     "price": 200,
     "thumbnail": "url_del_thumbnail_2",
     "code": "codigo_2",
     "stock": 5,
-    "id": 4
+    "id": 2
   }
 ]
