@@ -71,8 +71,8 @@
   },
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon index.js",
-    "start:dev": "node --watch index.js"
+    "dev": "nodemon src/app.js",
+    "start:dev": "node --watch src/app.js"
   },
   "keywords": [],
   "author": "",
