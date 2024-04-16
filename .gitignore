@@ -1,2 +1,6 @@
 ProductManager.mjs
 /node_modules
+/srcBasico
+data.json
+package-lock.json
+.gitignore
