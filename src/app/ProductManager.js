@@ -5,7 +5,7 @@ class ProductManager {
             this.products = [];
             this.productIdCounter = 1; // Para asignar un ID autoincrementable
             this.path = filePath;
-            this.path = 'products.json'; // Cambiar 'data.json' a './data/products.json'
+            this.path = './data/products.json';
         }
 
     loadProducts() {
@@ -28,19 +28,20 @@ class ProductManager {
 
 
     addProduct(product) {
-        if (!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock) {
-            console.error('Todos los campos son obligatorios');
-            return;
-        }
-        
         if (this.products.some((p) => p.code === product.code)) {
             console.error('El código del producto ya existe');
+            return;
+        }
+
+        if (!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock || !product.category ) {
+            console.error('Todos los campos son obligatorios');
             return;
         }
         
         const newProduct = {
             ...product,
             id: this.productIdCounter,
+            status: true, // Agregamos el campo status con valor true por defecto
         };
         
         this.products.push(newProduct);
@@ -71,6 +72,7 @@ class ProductManager {
             ...this.products[productIndex],
             ...updatedFields,
             id: this.products[productIndex].id, // No debe cambiarse el ID
+            
         };
         this.products[productIndex] = updatedProduct;
         this.saveProducts();

@@ -32,16 +32,35 @@ router.get('/:pid', (req, res) => {
 });
 
 
+// // Ruta para agregar un nuevo producto
+// router.post('/', (req, res) => {
+//     try {
+//     const newProduct = req.body;
+//     productManager.addProduct(newProduct);
+//     res.json({ message: 'Producto agregado exitosamente' });
+//     } catch (error) {
+//         res.status(500).json({ error: 'Error al agregar el producto' });
+//         }
+// });
+
+
 // Ruta para agregar un nuevo producto
 router.post('/', (req, res) => {
     try {
-    const newProduct = req.body;
-    productManager.addProduct(newProduct);
-    res.json({ message: 'Producto agregado exitosamente' });
+        const newProduct = req.body;
+        console.log(newProduct)
+        productManager.addProduct(newProduct);
+        res.json({ message: 'Producto agregado exitosamente' });
     } catch (error) {
-        res.status(500).json({ error: 'Error al agregar el producto' });
+        if (error.message === 'El código del producto ya existe') {
+            res.status(400).json({ error: error.message });
+            res.status(400).json({ error: 'El código del producto ya existe' });
+        } else {
+            res.status(500).json({ error: 'Error al agregar el producto' });
         }
+    }
 });
+
 
 // Ruta para actualizar un producto por su ID
 router.put('/:pid', (req, res) => {
