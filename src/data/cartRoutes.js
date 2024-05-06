@@ -10,9 +10,9 @@ function generateUniqueCartId() {
 
 // Función para guardar el carrito en "cart.json"
 function saveCartToFile(cart) {
-  const cartsData = loadCartsFromFile();
-  cartsData.push(cart);
-  fs.writeFileSync('data/cart.json', JSON.stringify(cartsData, null, 2), 'utf-8');
+  // const cartsData = loadCartsFromFile();
+  // cartsData.push(cart);
+  fs.writeFileSync('data/cart.json', JSON.stringify(cart, null, 2), 'utf-8');
 }
 
 // Para leer json de productos
@@ -105,36 +105,35 @@ router.get('/:cid', (req, res) => {
 
 router.post('/:cid/product/:pid', (req, res) => {
   const cartId = req.params.cid;
-  const productId = parseInt(req.params.pid, 10); // Convertir a número
+  const productId =req.params.pid; // Convertir a número
   const quantity = req.body.quantity || 1; // Default a 1 si no se especifica
+  const carts = loadCartsFromFile();
 
-  const carts = loadCartsFromFile().flat();
-  const cart = carts.find((cart) => cart.id === cartId);
-  if (!cart) {
+  const cart = carts.findIndex(cart => cart.id === cartId);
+  if (cart === -1) {
       res.status(404).json({ error: 'Carrito no encontrado' });
       return;
   }
 
-  if (!cart.products) {
-    cart.products = [];
-  }
+//   if (!cart.products) {
+//     cart.products = [];
+// }
+// console.log('cart.products length:', cart.products.length);
 
-  const existingProductIndex = cart.products.findIndex((product) => product.id === productId);
+
+  const existingProductIndex = carts[cart].products.findIndex((product) => product.id ===productId);
 
   if (existingProductIndex !== -1) {
       // Si el producto existe en el carrito, actualizar la cantidad
-      cart.products[existingProductIndex].quantity += quantity;
+      carts[cart].products[existingProductIndex].quantity += quantity;
   } else {
       // Si el producto no existe en el carrito, agregarlo con la cantidad especificada
-      cart.products.push({ id: productId, quantity });
+      carts[cart].products.push({ id: productId, quantity });
   }
 
   saveCartToFile(carts);
   res.json({ message: 'Producto agregado al carrito exitosamente' });
 });
-
-
-
 
 
 module.exports = router;
